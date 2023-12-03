@@ -1,49 +1,43 @@
 <script setup lang="ts">
-import WeatherIcon from "@/components/atoms/WeatherComponent.vue";
+import { onMounted, ref } from "vue";
+import axios from "axios";
+import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
+
+const weathers = ref([]);
+
+onMounted(async () => {
+  try {
+    const locations = ["New York", "Paris", "Tokyo", "London"];
+
+    for (const location of locations) {
+      const params = {
+        appid: process.env.VUE_APP_API_KEY,
+        q: location,
+        units: "metric",
+      };
+
+      const response = await axios.get(
+        "https://api.openweathermap.org/data/2.5/weather",
+        {
+          params,
+        }
+      );
+
+      weathers.value.push(response.data as never);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 </script>
 
 <template>
   <main class="flex justify-between p-40">
-    <div class="bg-[#24343D] w-fit rounded-3xl p-2">
-      <WeatherIcon />
-      <div class="mb-5 mx-12 mt-20">
-        <h2 class="text-white text-3xl">Ville de ?</h2>
-        <h3 class="text-white text-3xl">wind speed : 11km</h3>
-        <h3 class="text-white text-3xl">tuesday: 19h52</h3>
-        <h3 class="text-white text-3xl">temperature : 11°</h3>
-        <h3 class="text-white text-3xl">cloudy</h3>
-      </div>
-    </div>
-    <div class="bg-[#24343D] w-fit rounded-3xl p-2">
-      <WeatherIcon />
-      <div class="mb-5 mx-12 mt-20">
-        <h2 class="text-white text-3xl">Ville de ?</h2>
-        <h3 class="text-white text-3xl">wind speed : 11km</h3>
-        <h3 class="text-white text-3xl">tuesday: 19h52</h3>
-        <h3 class="text-white text-3xl">temperature : 11°</h3>
-        <h3 class="text-white text-3xl">cloudy</h3>
-      </div>
-    </div>
-    <div class="bg-[#24343D] w-fit rounded-3xl p-2">
-      <WeatherIcon />
-      <div class="mb-5 mx-12 mt-20">
-        <h2 class="text-white text-3xl">Ville de ?</h2>
-        <h3 class="text-white text-3xl">wind speed : 11km</h3>
-        <h3 class="text-white text-3xl">tuesday: 19h52</h3>
-        <h3 class="text-white text-3xl">temperature : 11°</h3>
-        <h3 class="text-white text-3xl">cloudy</h3>
-      </div>
-    </div>
-    <div class="bg-[#24343D] w-fit rounded-3xl p-2">
-      <WeatherIcon />
-      <div class="mb-5 mx-12 mt-20">
-        <h2 class="text-white text-3xl">Ville de ?</h2>
-        <h3 class="text-white text-3xl">wind speed : 11km</h3>
-        <h3 class="text-white text-3xl">tuesday: 19h52</h3>
-        <h3 class="text-white text-3xl">temperature : 11°</h3>
-        <h3 class="text-white text-3xl">cloudy</h3>
-      </div>
-    </div>
+    <WeatherCardComponent
+      v-for="weather in weathers"
+      :key="weather.name"
+      :weather="weather"
+    />
   </main>
 </template>
 
