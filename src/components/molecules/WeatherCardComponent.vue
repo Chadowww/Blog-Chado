@@ -1,14 +1,16 @@
 <script lang="ts">
-import WeatherComponent from "@/components/atoms/WeatherComponent.vue";
+import { Prop } from "vue-property-decorator";
+import { Options, Vue } from "vue-class-component";
+import WeatherComponent from "../atoms/WeatherComponent.vue";
 
-export default {
+@Options({
   components: {
     WeatherComponent,
   },
-  props: {
-    weather: [Object, Array],
-  },
-};
+})
+export default class WeatherCardComponent extends Vue {
+  @Prop({ required: true }) private weather!: object | any[];
+}
 </script>
 <template>
   <div class="bg-[#24343D] w-fit rounded-3xl p-2 md:scale-75">
