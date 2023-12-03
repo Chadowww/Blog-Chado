@@ -5,9 +5,6 @@ import TitleComponent from "@/components/atoms/TitleComponent.vue";
 import FilterComponent from "@/components/molecules/FilterComponent.vue";
 import MainComponent from "@/components/organisms/MainComponent.vue";
 
-let apiKey = process.env.VUE_APP_API_KEY;
-console.log(apiKey);
-
 @Options({
   components: {
     FilterComponent,
