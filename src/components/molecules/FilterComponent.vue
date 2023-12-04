@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { defineComponent } from "vue";
+import { ref, defineEmits } from "vue";
 
-defineComponent({
-  name: "FilterComponent",
-});
+const emit = defineEmits(["filter-changed"]);
+
+const searchQuery = ref("");
+
+const onFilterChanged = () => {
+  emit("filter-changed", searchQuery.value);
+};
 </script>
 
 <template>
@@ -11,10 +15,12 @@ defineComponent({
     <div class="w-2/6">
       <input
         type="search"
+        v-model="searchQuery"
         name="search"
         id="search"
         placeholder="Search Here"
         class="bg-[#24343D] w-full p-8 text-4xl rounded-xl"
+        @change="onFilterChanged"
       />
     </div>
     <div
