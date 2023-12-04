@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { defineProps } from "vue";
 import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
-import WeatherService from "@/services/WeatherService";
 
-const weathers = ref([]);
-
-onMounted(async () => {
-  const locations = ["New York", "Paris", "Tokyo", "London"];
-
-  for (const location of locations) {
-    weathers.value.push(
-      (await WeatherService.getWeatherByCity(location)) as never
-    );
-  }
+const props = defineProps({
+  weathers: {
+    type: Array,
+    required: true,
+  },
 });
 </script>
 
