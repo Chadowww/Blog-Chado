@@ -8,7 +8,7 @@ defineComponent({
 
 <template>
   <h1
-    class="w-8/12 my-16 mx-auto text-white text-center text-6xl font-extrabold"
+    class="w-8/12 my-8 mx-auto text-white text-center text-6xl font-extrabold"
   >
     Seeing the weather of the whole world with <span>Dark Weather!</span>
   </h1>
