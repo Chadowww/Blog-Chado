@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <template>
-  <nav class="relative px-4 py-10 flex justify-between items-center">
+  <nav class="relative px-4 py-4 flex justify-between items-center">
     <a class="text-3xl font-bold leading-none" href="#">
       <svg class="h-20" viewBox="0 0 10240 10240">
         <path
