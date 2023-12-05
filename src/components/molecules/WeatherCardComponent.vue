@@ -13,22 +13,25 @@ export default class WeatherCardComponent extends Vue {
 }
 </script>
 <template>
-  <div class="bg-[#24343D] w-fit rounded-3xl p-2 md:scale-75">
+  <div class="relative max-w-sm shadow-lg bg-[#24343D] rounded-3xl p-2">
     <WeatherComponent :icon="weather.weather[0].icon" />
-    <div class="mb-5 mx-12 mt-40">
-      <h2 class="text-white text-3xl">{{ weather?.name }}</h2>
-      <h3 class="text-white text-3xl">
-        temperature actuelle: {{ weather?.main?.temp }}°
-      </h3>
-      <h3 class="text-white text-3xl">
-        Min : {{ weather?.main?.temp_min }}° / Max :
-        {{ weather?.main?.temp_max }}°
-      </h3>
-      <h3 class="text-white text-3xl">
-        wind speed : {{ weather?.wind?.speed }} km/h
-      </h3>
-
-      <h3 class="text-white text-3xl">{{ weather.weather[0]?.description }}</h3>
+    <div>
+      <div class="mb-5 mx-12 mt-32">
+        <h2 class="text-white text-3xl">{{ weather?.name }}</h2>
+        <h3 class="text-white text-3xl">
+          temperature actuelle: {{ weather?.main?.temp }}°
+        </h3>
+        <h3 class="text-white text-3xl">
+          Min : {{ weather?.main?.temp_min }}° / Max :
+          {{ weather?.main?.temp_max }}°
+        </h3>
+        <h3 class="text-white text-3xl">
+          wind speed : {{ weather?.wind?.speed }} km/h
+        </h3>
+        <h3 class="text-white text-3xl">
+          {{ weather.weather[0]?.description }}
+        </h3>
+      </div>
     </div>
   </div>
 </template>
