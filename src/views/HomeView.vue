@@ -5,9 +5,19 @@ import TitleComponent from "@/components/atoms/TitleComponent.vue";
 import FilterComponent from "@/components/molecules/FilterComponent.vue";
 import MainComponent from "@/components/organisms/MainComponent.vue";
 import WeatherService from "@/services/WeatherService";
+import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
+
+interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+  [index: string]: any;
+}
 
 @Options({
   components: {
+    WeatherCardComponent,
     FilterComponent,
     TitleComponent,
     MainComponent,
@@ -15,26 +25,25 @@ import WeatherService from "@/services/WeatherService";
   },
 })
 export default class HomeView extends Vue {
-  private weathers: any[] = [];
+  private weathers: Weather[] = [];
+  private locations: string[] = ["New York", "Paris", "Tokyo", "Jakarta"];
 
   async mounted() {
-    const locations = ["New York", "Paris", "Tokyo", "Jakarta"];
-
-    if (this.weathers.length === 0) {
-      for (const location of locations) {
+    for (const location of this.locations) {
+      const weather = await WeatherService.getWeatherByCity(location);
+      this.weathers.push(weather);
+    }
+  }
+  async onFilterChanged(filter: string) {
+    if (filter !== "") {
+      this.weathers = [await WeatherService.getWeatherByCity(filter)];
+    } else {
+      this.weathers = [];
+      for (const location of this.locations) {
         const weather = await WeatherService.getWeatherByCity(location);
         this.weathers.push(weather);
       }
-      return;
     }
-
-    const weather = await WeatherService.getWeatherByCity(this.weathers[0]);
-    this.weathers.push(weather);
-  }
-  async onFilterChanged(filter: string) {
-    console.log(filter);
-    this.weathers = [await WeatherService.getWeatherByCity(filter)];
-    console.log(this.weathers);
   }
 }
 </script>
@@ -44,7 +53,7 @@ export default class HomeView extends Vue {
   <div class="home">
     <TitleComponent />
     <FilterComponent @filter-changed="onFilterChanged" />
-    <MainComponent :weathers="weathers" />
+    <MainComponent v-if="weathers.length > 0" :weathers="weathers" />
   </div>
 </template>
 
