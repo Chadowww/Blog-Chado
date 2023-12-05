@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <main class="flex justify-between p-40">
+  <main class="grid grid-cols-4 gap-16 pt-40 px-40">
     <WeatherCardComponent
       v-for="weather in weathers"
       :key="weather.name"
