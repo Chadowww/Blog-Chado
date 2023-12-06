@@ -6,6 +6,7 @@ import FilterComponent from "@/components/molecules/FilterComponent.vue";
 import MainComponent from "@/components/organisms/MainComponent.vue";
 import WeatherService from "@/services/WeatherService";
 import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
+import FooterComponent from "@/components/organisms/FooterComponent.vue";
 
 interface Weather {
   id: number;
@@ -17,6 +18,7 @@ interface Weather {
 
 @Options({
   components: {
+    FooterComponent,
     WeatherCardComponent,
     FilterComponent,
     TitleComponent,
@@ -49,11 +51,12 @@ export default class HomeView extends Vue {
 </script>
 
 <template>
-  <Navbar />
-  <div class="home">
+  <div class="h-screen flex flex-col justify-between">
+    <Navbar />
     <TitleComponent />
     <FilterComponent @filter-changed="onFilterChanged" />
     <MainComponent v-if="weathers.length > 0" :weathers="weathers" />
+    <FooterComponent />
   </div>
 </template>
 
