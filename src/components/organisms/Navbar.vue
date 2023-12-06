@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <template>
-  <nav class="relative px-4 py-4 flex justify-between items-center">
+  <nav class="relative px-4 pt-4 flex justify-between items-center">
     <a class="text-3xl font-bold leading-none" href="#">
       <svg class="h-20" viewBox="0 0 10240 10240">
         <path
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <li>
         <a
           class="text-4xl text-white hover:font-bold hover:text-gray-500"
-          href="#"
+          href="/"
         >
           Home
         </a>
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <li>
         <a
           class="text-4xl text-white hover:font-bold hover:text-gray-500"
-          href="#"
+          href="/about"
         >
           About Us
         </a>
@@ -176,14 +176,14 @@ document.addEventListener("DOMContentLoaded", function () {
           <li class="mb-1">
             <a
               class="block p-4 text-sm font-semibold text-white hover:bg-blue-50 hover:text-[#1b262c] rounded"
-              href="#"
+              href="/"
               >Home</a
             >
           </li>
           <li class="mb-1">
             <a
               class="block p-4 text-sm font-semibold text-white hover:bg-blue-50 hover:text-[#1b262c] rounded"
-              href="#"
+              href="/about"
               >About Us</a
             >
           </li>
