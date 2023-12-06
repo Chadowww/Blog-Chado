@@ -17,8 +17,21 @@ export default class WeatherCardComponent extends Vue {
 <style scoped>
 img {
   position: absolute;
-  width: 100%;
-  top: -40%;
-  right: -35%;
+  width: 70%;
+  top: -50%;
+  right: -20%;
+}
+@media screen and (max-width: 400px) {
+  img {
+    width: 50%;
+    top: 0;
+    right: 0;
+  }
+}
+@media screen and (max-width: 840px) {
+  position: absolute;
+  width: 70%;
+  top: -50%;
+  right: -20%;
 }
 </style>

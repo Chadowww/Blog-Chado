@@ -13,7 +13,9 @@ const props = defineProps({
 
 <template>
   <template v-if="weathers.length > 1">
-    <main class="grid grid-cols-4 gap-16 pt-32 px-32">
+    <main
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 xl:gap-16 xl:pt-20 xl:px-32 place-items-center"
+    >
       <WeatherCardComponent
         v-for="weather in weathers"
         :key="weather.name"
@@ -22,7 +24,7 @@ const props = defineProps({
     </main>
   </template>
   <template v-else>
-    <main class="m-auto grid grid-cols-1 gap-16 pt-32 px-32">
+    <main class="grid grid-cols-1 gap-16 pt-10 md:p-10 xl:px-32">
       <WeatherBigCard :weathers="weathers" />
     </main>
   </template>

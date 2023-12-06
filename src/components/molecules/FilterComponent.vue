@@ -12,26 +12,26 @@ const onFilterChanged = () => {
 
 <template>
   <div class="w-8/12 md:w-10/12 mx-auto flex justify-between">
-    <div class="w-2/6">
+    <div class="w-full md:w-2/6">
       <input
         type="search"
         v-model="searchQuery"
         name="search"
         id="search"
         placeholder="Search Here"
-        class="bg-[#24343D] w-full p-8 text-4xl rounded-xl"
+        class="bg-[#24343D] w-full p-2 md:p-2 lg::p-8 text-2xl md:text-3xl rounded-xl text-white"
         @change="onFilterChanged"
       />
     </div>
     <div
-      class="bg-[#24343D] w-3/6 p-4 flex justify-around items-center rounded-xl"
+      class="bg-[#24343D] hidden md:flex w-7/12 lg:w-3/6 p-2 lg:p-4 justify-around items-center rounded-xl"
     >
-      <h4 class="text-2xl font-extrabold text-white">Filter :</h4>
+      <h4 class="text-2xl font-bold text-white whitespace-nowrap">Filter :</h4>
       <div class="bg-[#24343D] border border-gray-500 rounded">
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] text-2xl p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>
@@ -43,7 +43,7 @@ const onFilterChanged = () => {
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] text-2xl p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>
@@ -55,7 +55,7 @@ const onFilterChanged = () => {
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] text-2xl p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>

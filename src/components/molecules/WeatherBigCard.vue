@@ -15,6 +15,7 @@ import WeatherService from "@/services/WeatherService";
 })
 export default class WeatherBigCard extends Vue {
   private weatherForcast: { list: Array<any> } | null = null;
+  weathers: any;
   async mounted() {
     const wheather = await WeatherService.getWeatherForecastByCity(
       this.weathers[0].name
@@ -26,7 +27,7 @@ export default class WeatherBigCard extends Vue {
 
 <template>
   <div
-    class="flex flex-row justify-around items-center bg-[#24343D] rounded-3xl p-2"
+    class="flex flex-col lg:flex-row justify-around items-center bg-[#24343D] rounded-3xl p-2"
   >
     <WeatherCardComponent
       v-for="weather in weathers"
