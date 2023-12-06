@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="w-11/12">
     <canvas id="myChart" width="800" height="500"></canvas>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 import {
   Chart,
   LineController,
@@ -27,40 +28,33 @@ Chart.register(
   Tooltip
 );
 
-@Options({
-  name: "LineChart",
-  props: {
-    previous: {
-      type: Array,
-      required: true,
-    },
-  },
-})
 export default class LineChart extends Vue {
+  @Prop({ required: true, type: Array })
+  readonly previous!: any[];
   mounted() {
     const ctx = document.getElementById("myChart") as HTMLCanvasElement;
     new Chart(ctx, {
       type: "line",
       data: {
-        labels: this.$props.previous.map((item: any) => item.dt_txt),
+        labels: this.previous.map((item: any) => item.dt_txt),
         datasets: [
           {
             label: "Temperature",
-            data: this.$props.previous.map((item: any) => item.main.temp),
+            data: this.previous.map((item: any) => item.main.temp),
             backgroundColor: "transparent",
             borderColor: "#48484A",
             borderWidth: 2,
           },
           {
             label: "Température ressentie",
-            data: this.$props.previous.map((item: any) => item.main.feels_like),
+            data: this.previous.map((item: any) => item.main.feels_like),
             backgroundColor: "transparent",
             borderColor: "#EC6E4C",
             borderWidth: 2,
           },
           {
             label: "Vitesse du vent",
-            data: this.$props.previous.map((item: any) => item.wind.speed),
+            data: this.previous.map((item: any) => item.wind.speed),
             backgroundColor: "transparent",
             borderColor: "#F2F2F1",
             borderWidth: 2,
