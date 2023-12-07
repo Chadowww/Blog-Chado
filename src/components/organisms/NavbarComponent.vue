@@ -95,7 +95,7 @@ const setNav = () => {
       <li>
         <a
           class="text-4xl text-white hover:font-bold hover:text-gray-500"
-          href="#"
+          href="/contact"
         >
           Contact
         </a>
@@ -164,7 +164,7 @@ const setNav = () => {
           <li class="mb-1">
             <a
               class="block p-4 text-sm font-semibold text-white hover:bg-blue-50 hover:text-[#1b262c] rounded"
-              href="#"
+              href="/contact"
               >Contact</a
             >
           </li>
