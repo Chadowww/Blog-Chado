@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Navbar from "@/components/organisms/Navbar.vue";
+import NavbarComponent from "@/components/organisms/NavbarComponent.vue";
 import TitleComponent from "@/components/atoms/TitleComponent.vue";
 import FilterComponent from "@/components/molecules/FilterComponent.vue";
 import MainComponent from "@/components/organisms/MainComponent.vue";
@@ -23,7 +23,7 @@ interface Weather {
     FilterComponent,
     TitleComponent,
     MainComponent,
-    Navbar,
+    NavbarComponent,
   },
 })
 export default class HomeView extends Vue {
@@ -52,7 +52,7 @@ export default class HomeView extends Vue {
 
 <template>
   <div class="h-screen flex flex-col justify-between">
-    <Navbar />
+    <NavbarComponent />
     <TitleComponent />
     <FilterComponent @filter-changed="onFilterChanged" />
     <MainComponent v-if="weathers.length > 0" :weathers="weathers" />

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import NavBar from "@/components/organisms/Navbar.vue";
+import NavBarComponent from "@/components/organisms/NavbarComponent.vue";
 import FooterComponent from "@/components/organisms/FooterComponent.vue";
 </script>
 
 <template>
   <section class="h-screen flex flex-col">
-    <NavBar />
+    <NavBarComponent />
     <div class="flex-grow flex flex-col justify-around text-white">
       <div class="w-6/12 m-auto">
         <h1 class="text-center text-6xl mb-5">

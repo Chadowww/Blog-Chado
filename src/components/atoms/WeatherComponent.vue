@@ -24,8 +24,8 @@ img {
 @media screen and (max-width: 400px) {
   img {
     width: 50%;
-    top: 0;
-    right: 0;
+    top: -30%;
+    right: -10%;
   }
 }
 @media screen and (max-width: 840px) {

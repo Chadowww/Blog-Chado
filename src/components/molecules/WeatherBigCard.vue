@@ -3,6 +3,7 @@ import { Options, Vue } from "vue-class-component";
 import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
 import LineChart from "@/components/atoms/LineChart.vue";
 import WeatherService from "@/services/WeatherService";
+
 @Options({
   name: "WeatherBigCard",
   components: { WeatherCardComponent, LineChart },
@@ -12,16 +13,21 @@ import WeatherService from "@/services/WeatherService";
       required: true,
     },
   },
+  watch: {
+    weathers: {
+      async handler() {
+        this.weatherForcast = await WeatherService.getWeatherForecastByCity(
+          this.weathers[0].name
+        );
+        console.log(this.weatherForcast);
+      },
+      immediate: true,
+    },
+  },
 })
 export default class WeatherBigCard extends Vue {
   private weatherForcast: { list: Array<any> } | null = null;
   weathers: any;
-  async mounted() {
-    const wheather = await WeatherService.getWeatherForecastByCity(
-      this.weathers[0].name
-    );
-    this.weatherForcast = wheather;
-  }
 }
 </script>
 

@@ -19,7 +19,7 @@ const onFilterChanged = () => {
         name="search"
         id="search"
         placeholder="Search Here"
-        class="bg-[#24343D] w-full p-2 md:p-2 lg::p-8 text-2xl md:text-3xl rounded-xl text-white"
+        class="bg-[#24343D] w-full p-2 md:p-2 lg:p-4 text-2xl md:text-3xl rounded-xl text-white"
         @change="onFilterChanged"
       />
     </div>
@@ -31,7 +31,7 @@ const onFilterChanged = () => {
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 xl:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>
@@ -43,7 +43,7 @@ const onFilterChanged = () => {
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 xl:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>
@@ -55,7 +55,7 @@ const onFilterChanged = () => {
         <select
           name="select"
           id="select"
-          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 lg:p-4 text-white rounded"
+          class="bg-[#24343D] md:text-xl lg:text-2xl md:p-1 xl:p-4 text-white rounded"
         >
           <option value="option">Option</option>
           <option value="option">Option</option>

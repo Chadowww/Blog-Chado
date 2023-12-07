@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
   <template v-if="weathers.length > 1">
     <main
-      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 xl:gap-16 xl:pt-20 xl:px-32 place-items-center"
+      class="grid grid-cols-1 md:grid-cols-2 xl:gap-16 xl:pt-20 xl:px-32 place-items-center"
     >
       <WeatherCardComponent
         v-for="weather in weathers"
