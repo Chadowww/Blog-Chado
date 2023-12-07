@@ -40,8 +40,8 @@ import FooterComponent from "@/components/organisms/FooterComponent.vue";
         </p>
       </div>
     </div>
+    <FooterComponent />
   </section>
-  <FooterComponent />
 </template>
 
 <style scoped></style>
