@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { reactive } from "vue";
+import {
+  verifEmail,
+  verifSubject,
+  verifMessage,
+  errors,
+} from "@/utils/formValidations";
 
 type messageType = {
   email: string;
@@ -12,14 +18,10 @@ const message = reactive<messageType>({
   subject: "",
   message: "",
 });
-
-function handleChange() {
-  console.log(message);
-}
 </script>
 
 <template>
-  <section class="bg-white dark:bg-gray-900 md:w-10/12 m-auto rounded-3xl">
+  <section class="bg-white dark:bg-gray-900 md:w-8/12 m-auto rounded-3xl">
     <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
       <h2
         class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
@@ -43,13 +45,23 @@ function handleChange() {
           <input
             v-model="message.email"
             @change="message.email = $event.target.value"
-            @input="handleChange"
+            @input="verifEmail(message.email)"
             type="email"
             id="email"
-            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+            :class="{
+              'border-2 border-red-500': errors.email,
+              'border-2 border-green-300': errors.email === '',
+            }"
+            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
             placeholder="name@flowbite.com"
             required
           />
+          <div
+            v-if="errors.email"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.email }}
+          </div>
         </div>
         <div>
           <label
@@ -61,13 +73,23 @@ function handleChange() {
           <input
             v-model="message.subject"
             @change="message.subject = $event.target.value"
-            @input="handleChange"
+            @input="verifSubject(message.subject)"
             type="text"
             id="subject"
-            class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+            :class="{
+              'border-2 border-red-500': errors.subject,
+              'border-2 border-green-300': errors.subject === '',
+            }"
+            class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm focus:ring-primary-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:shadow-sm-light focus:outline-none"
             placeholder="Let us know how we can help you"
             required
           />
+          <div
+            v-if="errors.subject"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.subject }}
+          </div>
         </div>
         <div class="sm:col-span-2">
           <label
@@ -79,12 +101,22 @@ function handleChange() {
           <textarea
             v-model="message.message"
             @change="message.message = $event.target.value"
-            @input="handleChange"
+            @input="verifMessage(message.message)"
             id="message"
             rows="6"
-            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            :class="{
+              'border-2 border-red-500': errors.message,
+              'border-2 border-green-300': errors.message === '',
+            }"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm focus:ring-primary-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 focus:outline-none"
             placeholder="Leave a comment..."
           ></textarea>
+          <div
+            v-if="errors.message"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.message }}
+          </div>
         </div>
         <button
           type="submit"
