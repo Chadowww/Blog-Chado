@@ -18,7 +18,7 @@ export default class WeatherCardComponent extends Vue {
   >
     <WeatherComponent :icon="weather.weather[0].icon" />
     <div>
-      <div class="mb-5 mx-1 xl:mx-12 mt-8 xl:mt-32">
+      <div class="mb-5 mx-1 xl:mx-12 mt-5 xl:mt-24">
         <h2 class="text-white xl:text-3xl">{{ weather?.name }}</h2>
         <h3 class="text-white xl:text-3xl">
           temperature actuelle: {{ weather?.main?.temp }}°
