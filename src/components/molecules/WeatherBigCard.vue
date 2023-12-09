@@ -19,7 +19,6 @@ import WeatherService from "@/services/WeatherService";
         this.weatherForcast = await WeatherService.getWeatherForecastByCity(
           this.weathers[0].name
         );
-        console.log(this.weatherForcast);
       },
       immediate: true,
     },
