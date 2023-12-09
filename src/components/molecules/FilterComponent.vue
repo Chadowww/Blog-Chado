@@ -19,12 +19,12 @@ const onFilterChanged = () => {
         name="search"
         id="search"
         placeholder="Search Here"
-        class="bg-[#24343D] w-full p-2 md:p-2 lg:p-4 text-2xl md:text-3xl rounded-xl text-white"
+        class="bg-[#24343D] w-full p-2 md:p-2 lg:p-6 text-2xl md:text-3xl rounded-xl text-white"
         @change="onFilterChanged"
       />
     </div>
     <div
-      class="bg-[#24343D] hidden md:flex w-7/12 lg:w-3/6 p-2 lg:p-4 justify-around items-center rounded-xl"
+      class="bg-[#24343D] hidden md:flex w-7/12 lg:w-3/6 p-2 lg:p-2 justify-around items-center rounded-xl"
     >
       <h4 class="text-2xl font-bold text-white whitespace-nowrap">Filter :</h4>
       <div class="bg-[#24343D] border border-gray-500 rounded">
