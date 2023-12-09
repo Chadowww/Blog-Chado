@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps, defineEmits } from "vue";
+
+const props = defineProps({
+  toggleLogin: Boolean,
+  toggleRegister: Boolean,
+});
+
+const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
+</script>
 
 <template>
   <div
@@ -94,6 +103,10 @@
           Already have an account?
           <a
             href="#"
+            @click="
+              emit('update:toggleRegister', false);
+              emit('update:toggleLogin', true);
+            "
             class="font-medium text-primary-600 hover:underline dark:text-primary-500"
           >
             Login here
