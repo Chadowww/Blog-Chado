@@ -191,18 +191,56 @@ const setNav = () => {
       </div>
     </nav>
   </div>
-  <div
-    v-if="toggleLogin"
-    @click="toggleLogin = !toggleLogin"
-    class="h-full w-full absolute z-50 bg-black bg-opacity-50 flex justify-center items-center"
-  >
-    <LoginModal @click.stop />
-  </div>
-  <div
-    v-if="toggleRegister"
-    @click="toggleRegister = !toggleRegister"
-    class="h-full w-full absolute z-50 bg-black bg-opacity-50 flex justify-center items-center"
-  >
-    <RegisterModal @click.stop />
-  </div>
+  <transition name="login-modal">
+    <div
+      v-if="toggleLogin"
+      @click="toggleLogin = !toggleLogin"
+      class="login-modal h-full w-full absolute z-50 bg-black bg-opacity-50 flex justify-center items-center"
+    >
+      <LoginModal
+        @click.stop
+        @update:toggleLogin="(val) => (toggleLogin = val)"
+        @update:toggleRegister="(val) => (toggleRegister = val)"
+        :toggleLogin="toggleLogin.value"
+        :toggleRegister="toggleRegister.value"
+      />
+    </div>
+  </transition>
+  <transition name="register-modal">
+    <div
+      v-if="toggleRegister"
+      @click="toggleRegister = !toggleRegister"
+      class="register-modal h-full w-full absolute z-50 bg-black bg-opacity-50 flex justify-center items-center"
+    >
+      <RegisterModal
+        @click.stop
+        @update:toggleRegister="(val) => (toggleRegister = val)"
+        @update:toggleLogin="(val) => (toggleLogin = val)"
+        :toggleRegister="toggleRegister.value"
+        :toggleLogin="toggleLogin.value"
+      />
+    </div>
+  </transition>
 </template>
+
+<style scoped>
+.login-modal-enter-active,
+.login-modal-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.login-modal-enter-from,
+.login-modal-leave-to {
+  opacity: 0;
+}
+
+.register-modal-enter-active,
+.register-modal-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.register-modal-enter-from,
+.register-modal-leave-to {
+  opacity: 0;
+}
+</style>
