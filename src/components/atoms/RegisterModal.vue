@@ -1,12 +1,53 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
+import {
+  verifPassword,
+  verifEmail,
+  errors,
+  verifConfirmPassword,
+} from "@/utils/formValidations";
+import axios from "axios";
+
+type dataType = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const data: dataType = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const props = defineProps({
   toggleLogin: Boolean,
   toggleRegister: Boolean,
 });
-
 const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
+
+const register = async () => {
+  try {
+    const response = await axios.post(
+      "https://127.0.0.1:8000/register",
+      {
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status === 201) {
+      emit("update:toggleRegister", false);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 
 <template>
@@ -19,7 +60,7 @@ const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
       >
         Create and account
       </h1>
-      <form class="space-y-4 md:space-y-6" action="#">
+      <form class="space-y-4 md:space-y-6" @submit.prevent="register">
         <div>
           <label
             for="email"
@@ -28,13 +69,25 @@ const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
             Your email
           </label>
           <input
+            @input="verifEmail(data.email)"
+            v-model="data.email"
             type="email"
             name="email"
             id="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
+            :class="{
+              'border-2 border-red-500': errors.email,
+              'border-2 border-green-300': errors.email === null,
+            }"
             placeholder="name@company.com"
             required=""
           />
+          <div
+            v-if="errors.email"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.email }}
+          </div>
         </div>
         <div>
           <label
@@ -44,13 +97,25 @@ const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
             Password
           </label>
           <input
+            @input="verifPassword(data.password)"
+            v-model="data.password"
             type="password"
             name="password"
             id="password"
             placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
+            :class="{
+              'border-2 border-red-500': errors.password,
+              'border-2 border-green-300': errors.password === null,
+            }"
             required=""
           />
+          <div
+            v-if="errors.password"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.password }}
+          </div>
         </div>
         <div>
           <label
@@ -60,13 +125,25 @@ const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
             Confirm password
           </label>
           <input
-            type="confirm-password"
+            @input="verifConfirmPassword(data.password, data.confirmPassword)"
+            v-model="data.confirmPassword"
+            type="password"
             name="confirm-password"
             id="confirm-password"
             placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
+            :class="{
+              'border-2 border-red-500': errors.confirmPassword,
+              'border-2 border-green-300': errors.confirmPassword === null,
+            }"
             required=""
           />
+          <div
+            v-if="errors.confirmPassword"
+            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+          >
+            {{ errors.confirmPassword }}
+          </div>
         </div>
         <div class="flex items-start">
           <div class="flex items-center h-5">
@@ -96,6 +173,7 @@ const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
         <button
           type="submit"
           class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+          :disabled="!Object.values(errors).every((value) => value === null)"
         >
           Create an account
         </button>
