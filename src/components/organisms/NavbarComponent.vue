@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import LoginModal from "@/components/atoms/LoginModal.vue";
-import RegisterModal from "@/components/atoms/RegisterModal.vue";
+import LoginModal from "@/components/molecules/LoginModal.vue";
+import RegisterModal from "@/components/molecules/RegisterModal.vue";
 
 const toggleNave = ref<boolean>(false);
 const toggleLogin = ref<boolean>(false);
