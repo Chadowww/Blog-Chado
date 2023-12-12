@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
-import {
-  verifPassword,
-  verifEmail,
-  errors,
-  verifConfirmPassword,
-} from "@/utils/formValidations";
+import { defineProps, defineEmits, ref } from "vue";
+import { errors, verifConfirmPassword } from "@/utils/formValidations";
 import axios from "axios";
+import InputEmail from "@/components/atoms/InputEmail.vue";
+import InputPassword from "@/components/atoms/InputPassword.vue";
+
+const props = defineProps({
+  toggleLogin: Boolean,
+  toggleRegister: Boolean,
+});
+
+const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
 
 type dataType = {
   email: string;
@@ -20,11 +24,7 @@ const data: dataType = {
   confirmPassword: "",
 };
 
-const props = defineProps({
-  toggleLogin: Boolean,
-  toggleRegister: Boolean,
-});
-const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
+const emailError = ref<string | null>(null);
 
 const register = async () => {
   try {
@@ -44,8 +44,8 @@ const register = async () => {
     if (response.status === 201) {
       emit("update:toggleRegister", false);
     }
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    emailError.value = error.response.data[0].message;
   }
 };
 </script>
@@ -62,60 +62,10 @@ const register = async () => {
       </h1>
       <form class="space-y-4 md:space-y-6" @submit.prevent="register">
         <div>
-          <label
-            for="email"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Your email
-          </label>
-          <input
-            @input="verifEmail(data.email)"
-            v-model="data.email"
-            type="email"
-            name="email"
-            id="email"
-            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
-            :class="{
-              'border-2 border-red-500': errors.email,
-              'border-2 border-green-300': errors.email === null,
-            }"
-            placeholder="name@company.com"
-            required=""
-          />
-          <div
-            v-if="errors.email"
-            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
-          >
-            {{ errors.email }}
-          </div>
+          <InputEmail v-model:email="data.email" :email-error="emailError" />
         </div>
         <div>
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Password
-          </label>
-          <input
-            @input="verifPassword(data.password)"
-            v-model="data.password"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="••••••••"
-            class="shadow-sm bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light focus:outline-none"
-            :class="{
-              'border-2 border-red-500': errors.password,
-              'border-2 border-green-300': errors.password === null,
-            }"
-            required=""
-          />
-          <div
-            v-if="errors.password"
-            class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
-          >
-            {{ errors.password }}
-          </div>
+          <InputPassword v-model:password="data.password" />
         </div>
         <div>
           <label
