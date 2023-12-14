@@ -21,8 +21,8 @@ const data: dataType = {
   password: "",
 };
 
+let requestError: string | null;
 const login = async () => {
-  console.log(data.email, data.password);
   try {
     const response = await axios.post(
       "https://127.0.0.1:8000/login",
@@ -36,7 +36,15 @@ const login = async () => {
         },
       }
     );
-  } catch (error) {
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.token);
+      setTimeout(() => {
+        localStorage.removeItem("token");
+      }, 3600000);
+      emit("update:toggleLogin", false);
+    }
+  } catch (error: any) {
+    requestError = error.response.data.message;
     console.log(error);
   }
 };
@@ -52,6 +60,12 @@ const login = async () => {
       >
         Sign in to your account
       </h1>
+      <div
+        v-if="requestError"
+        class="border-red-600 border-2 rounded-lg p-2 mt-2 text-red-600 dark:text-red-400 dark:border-red-400"
+      >
+        <p>{{ requestError }}</p>
+      </div>
       <form class="space-y-4 md:space-y-6" @submit.prevent="login">
         <div>
           <input-email v-model:email="data.email" />
