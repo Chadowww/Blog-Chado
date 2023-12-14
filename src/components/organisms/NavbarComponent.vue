@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import LoginModal from "@/components/molecules/LoginModal.vue";
 import RegisterModal from "@/components/molecules/RegisterModal.vue";
+import UserButton from "@/components/atoms/UserButton.vue";
 
 const toggleNave = ref<boolean>(false);
 const toggleLogin = ref<boolean>(false);
@@ -10,6 +11,8 @@ const toggleRegister = ref<boolean>(false);
 const setNav = () => {
   toggleNave.value = !toggleNave.value;
 };
+
+const token = localStorage.getItem("token");
 </script>
 
 <template>
@@ -102,17 +105,20 @@ const setNav = () => {
       </li>
     </ul>
     <a
+      v-if="!token"
       @click="toggleLogin = !toggleLogin"
       class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-[#1b262c] hover:bg-gray-100 text-lg text-white hover:text-[#1b262c] font-bold rounded-xl transition duration-200"
       href="#"
       >Sign In</a
     >
     <a
+      v-if="!token"
       @click="toggleRegister = !toggleRegister"
       class="hidden lg:inline-block py-2 px-6 bg-[#1b262c] hover:bg-blue-600 text-lg text-white hover:text-[#1b262c] font-bold rounded-xl transition duration-200"
       href="#"
       >Sign up</a
     >
+    <UserButton v-if="token" />
   </nav>
   <div v-if="toggleNave" class="navbar-menu relative z-50">
     <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
@@ -171,7 +177,19 @@ const setNav = () => {
         </ul>
       </div>
       <div class="mt-auto">
-        <div class="pt-6">
+        <div v-if="token" class="pt-6">
+          <a
+            class="block px-4 py-3 mb-3 leading-loose text-xs text-center text-white font-semibold bg-[#1b262c] hover:text-[#1b262c] hover:bg-gray-100 rounded-xl"
+            href="#"
+            >Profile</a
+          >
+          <a
+            class="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-[#1b262c] hover:text-[#1b262c] hover:bg-blue-700 rounded-xl"
+            href="#"
+            >Logout</a
+          >
+        </div>
+        <div v-if="!token" class="pt-6">
           <a
             @click="toggleLogin = !toggleLogin"
             class="block px-4 py-3 mb-3 leading-loose text-xs text-center text-white font-semibold bg-[#1b262c] hover:text-[#1b262c] hover:bg-gray-100 rounded-xl"
