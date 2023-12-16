@@ -2,10 +2,11 @@
 import { defineProps, ref, watch } from "vue";
 import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
 import WeatherBigCard from "@/components/molecules/WeatherBigCard.vue";
+import { Root } from "@/types/Weather";
 
 const props = defineProps({
   weathers: {
-    type: Array,
+    type: Array as () => Root[],
     required: true,
   },
 });
