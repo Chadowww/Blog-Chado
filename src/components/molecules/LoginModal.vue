@@ -3,6 +3,7 @@ import { defineProps, defineEmits } from "vue";
 import InputPassword from "@/components/atoms/InputPassword.vue";
 import InputEmail from "@/components/atoms/InputEmail.vue";
 import axios from "axios";
+import { LoginForm } from "@/types/DataForm";
 
 const props = defineProps({
   toggleLogin: Boolean,
@@ -11,12 +12,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
 
-type dataType = {
-  email: string;
-  password: string | null;
-};
-
-const data: dataType = {
+const data: LoginForm = {
   email: "",
   password: "",
 };
@@ -25,7 +21,7 @@ let requestError: string | null;
 const login = async () => {
   try {
     const response = await axios.post(
-      "https://127.0.0.1:8000/login",
+      "https://127.0.0.1:8000/api/login",
       {
         email: data.email,
         password: data.password,
@@ -81,7 +77,6 @@ const login = async () => {
                 aria-describedby="remember"
                 type="checkbox"
                 class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                required=""
               />
             </div>
             <div class="ml-3 text-sm">
