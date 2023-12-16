@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { errors, verifEmail } from "@/utils/formValidations";
-import { defineProps, defineEmits, reactive, ref } from "vue";
+import { defineProps, defineEmits, reactive } from "vue";
 
 const props = defineProps({
   email: String,
