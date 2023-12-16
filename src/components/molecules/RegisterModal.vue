@@ -4,6 +4,7 @@ import { errors, verifConfirmPassword } from "@/utils/formValidations";
 import axios from "axios";
 import InputEmail from "@/components/atoms/InputEmail.vue";
 import InputPassword from "@/components/atoms/InputPassword.vue";
+import { RegisterForm } from "@/types/DataForm";
 
 const props = defineProps({
   toggleLogin: Boolean,
@@ -12,13 +13,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:toggleLogin", "update:toggleRegister"]);
 
-type dataType = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-const data: dataType = {
+const data: RegisterForm = {
   email: "",
   password: "",
   confirmPassword: "",
