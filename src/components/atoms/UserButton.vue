@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { User } from "@/types/User";
 
-type UserType = {
-  email: string;
-  role: Array<string>;
-};
-
-const user = ref<UserType>({ email: "", role: [] });
+const user = ref<User>({
+  id: undefined,
+  email: "",
+  password: "",
+  roles: [],
+});
 
 const getUser = () => {
+  console.log(localStorage.getItem("token"));
   axios
     .get("https://127.0.0.1:8000/user", {
       headers: {
@@ -21,6 +23,7 @@ const getUser = () => {
     })
     .catch((error) => {
       console.error(error);
+      localStorage.removeItem("token");
     });
 };
 
@@ -30,5 +33,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>hello {{ user.email }}</div>
+  <div>
+    <a
+      class="text-4xl text-white hover:font-bold hover:text-gray-500"
+      href="/about"
+    >
+      {{ user.email }}
+    </a>
+  </div>
 </template>
