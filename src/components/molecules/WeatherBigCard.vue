@@ -3,14 +3,14 @@ import { Options, Vue } from "vue-class-component";
 import WeatherCardComponent from "@/components/molecules/WeatherCardComponent.vue";
 import LineChart from "@/components/atoms/LineChart.vue";
 import WeatherService from "@/services/WeatherService";
+import { WeatherRoot } from "@/types/Weather";
 
 @Options({
   name: "WeatherBigCard",
   components: { WeatherCardComponent, LineChart },
   props: {
     weathers: {
-      type: Array,
-      required: true,
+      type: Array as () => WeatherRoot[],
     },
   },
   watch: {
