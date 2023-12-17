@@ -38,6 +38,7 @@ const login = async () => {
         localStorage.removeItem("token");
       }, 3600000);
       emit("update:toggleLogin", false);
+      location.reload();
     }
   } catch (error: any) {
     requestError = error.response.data.message;
