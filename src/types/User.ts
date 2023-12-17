@@ -1,6 +1,8 @@
 export interface User {
-  id: number | undefined;
+  id: number;
   email: string;
+  userIdentifier: string;
+  roles: string[];
   password: string;
-  roles: Array<string>;
+  verified: boolean;
 }
