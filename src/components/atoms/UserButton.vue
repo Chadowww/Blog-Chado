@@ -1,30 +1,24 @@
 <script setup lang="ts">
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, Ref, inject } from "vue";
 import { User } from "@/types/User";
 
-const user = ref<User>({
-  id: undefined,
-  email: "",
-  password: "",
-  roles: [],
-});
+const user = inject<Ref<User | undefined>>("user")!;
+const updateUser = inject<Ref<(newUser: User) => void>>("updateUser")!;
 
-const getUser = () => {
-  console.log(localStorage.getItem("token"));
-  axios
-    .get("https://127.0.0.1:8000/user", {
+const getUser = async () => {
+  try {
+    const response = await axios.get<User>("https://127.0.0.1:8000/user", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    })
-    .then((response) => {
-      user.value = response.data;
-    })
-    .catch((error) => {
-      console.error(error);
-      localStorage.removeItem("token");
     });
+    console.log(response);
+    updateUser.value(JSON.parse(response.data.user));
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem("token");
+  }
 };
 
 onMounted(() => {
@@ -35,6 +29,7 @@ onMounted(() => {
 <template>
   <div>
     <a
+      v-if="user"
       class="text-4xl text-white hover:font-bold hover:text-gray-500"
       href="/about"
     >
